@@ -1,6 +1,7 @@
 package com.gpost.sprongmongo.resource;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gpost.sprongmongo.domain.User;
+import com.gpost.sprongmongo.dto.UserDTO;
 import com.gpost.sprongmongo.services.UserService;
 
 @RestController
@@ -20,8 +22,9 @@ public class UserResource {
 
 	// Retorna uma lista de todos os usuários
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<UserDTO> lisDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(lisDto);
 	}
 }
