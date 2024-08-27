@@ -1,5 +1,6 @@
 package com.gpost.sprongmongo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,12 @@ public class PostService {
 	public Post findById(String id) {
 		Optional<Post> Post = repository.findById(id);
 		return Post.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
+	}
+	
+	// Busca um usuário pelo title
+	public List<Post> findByTitle(String title){
+		return repository.findByTitleContainingIgnoreCase(title);
+		
 	}
 
 }
