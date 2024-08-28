@@ -24,7 +24,7 @@ public class PostService {
 	
 	// Busca um usuário pelo title
 	public List<Post> findByTitle(String title){
-		return repository.findByTitleContainingIgnoreCase(title);
+		return repository.searchTitle(title);
 		
 	}
 
